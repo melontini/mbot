@@ -59,8 +59,11 @@
       # This is an additional overlay implementing build fixups.
       # See:
       # - https://pyproject-nix.github.io/uv2nix/FAQ.html
-      # pyprojectOverrides = _final: _prev: {
-      # };
+      pyprojectOverrides = _final: _prev: {
+        "markovify" = _prev."markovify".overrideAttrs(old: {
+          buildInputs = (old.buildInputs or []) ++ [ _prev.setuptools ];
+        });
+      };
 
       # This example is only using aarch64-darwin
       pkgs = import nixpkgs {inherit system;};
