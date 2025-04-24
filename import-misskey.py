@@ -1,0 +1,54 @@
+import re
+import json
+import sys
+
+print('[+] loading nlp enhanced markov chain')
+import chain
+
+MENTION = re.compile(r'@[a-zA-Z0-9.-_]+(@[a-zA-Z0-9.]+-_)?')
+MFM_BEGIN = re.compile(r'\$\[[a-z0-9.,=]+')
+MFM_END = re.compile(r'\]+')
+HTML = re.compile(r'</?[a-z]+>')
+SPACE = re.compile(r'[ \n]+')
+CONTRACTION = re.compile(r"(\w+)'(\w+)")
+
+print('[+] loading note json')
+export_f = sys.argv[1]
+export = open(export_f)
+export_json = json.load(export)
+
+corpus = []
+
+for note in export_json:
+    if note.get('visibility') not in ['public', 'home']:
+        continue
+
+    if note.get('localOnly'):
+        continue
+
+    if note.get('cw'):
+        continue
+
+    text = note.get('text')
+    if not text:
+        continue
+
+    text = text.lower() 
+    text = re.sub(MENTION, '', text)
+    text = re.sub(MFM_BEGIN, '', text)
+    text = re.sub(MFM_END, '', text)
+    text = re.sub(HTML, '', text)
+    text = re.sub(SPACE, ' ', text)
+    text = re.sub(CONTRACTION, r'\1\2', text)
+    text = text.strip()
+
+    print(f"     - {text}")
+    corpus.append(text)
+
+print('[+] building markov chain')
+model = chain.Text("@@note@@".join(corpus), well_formed=False)
+model_json = model.compile().to_json()
+
+print('[+] exporting')
+export = open(export_f.replace('.json', '.model.json'), 'w')
+export.write(model_json)
