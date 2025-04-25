@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 
 import secrets__
 
-model_f = open("model.json")
+model_f = open( secrets__.PATH + "model.json")
 model = chain.Text.from_json(model_f.read())
 
 generated = False
