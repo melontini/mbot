@@ -2,6 +2,8 @@
 
 i just stole from [sneexy's repo](https://forged.synth.download/sneexy/markov) the innovation i bring is just a script that converts mastodon to misskey for the sake of having journalist posts work with this mate also i guess nix flake so i don't need to put a bullet into my head dealing with python  (instead, i blow my head off dealing with nix )
 
+also im adding bsky posting because im awesome i guess ...
+
 # markov
 
 minimally modified fork of [kopper's markov bot](https://activitypub.software/kopper/markov) to post to iceshrimp.net. while still only taking in misskey exports. that's all i needed.

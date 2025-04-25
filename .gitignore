@@ -2,3 +2,5 @@ data/
 __pycache__
 venv
 .venv
+secrets__.py
+model.json
