@@ -1,3 +1,4 @@
 markovify
 requests
 spacy<3.8.0
+pandas>=2.2.3

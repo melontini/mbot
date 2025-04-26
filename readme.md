@@ -34,12 +34,13 @@ python import-misskey.py name-of-your-notes-export.json # will take a bit depend
 mv xxxxx.model.json model.json # exported file will be named something else, rename it to model.json to prevent it from erroring out when generating
 ```
 
-add your iceshrimp.net user/bot account token:
+add your iceshrimp.net user/bot account token & bsky bot account's app password: 
 ```sh
 echo "TOKEN='InsertVerySecureTokenHere'" > secrets__.py
+echo "BSKY='YourEpicBskyAppPassword'" >> secrets__.py
 ```
 
-...then edit `generate.py` and modify the `requests.post` section near the bottom to point the url to your instance.
+...then edit `generate.py` and modify the `requests.post` section near the bottom to point the url to your instance, and for bsky posting add the bot's handle in place of "markov.autumn.town", and edit the pds_url variable with your pds' url.
 
 ℹ️ alternatively, if you'd like to use this to post to misskey, replace it with this (replacing `yourinstance.tld` with your instance):
 ```python
