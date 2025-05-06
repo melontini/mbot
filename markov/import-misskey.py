@@ -5,6 +5,7 @@ import sys
 print('[+] loading nlp enhanced markov chain')
 import chain
 
+MENTION = re.compile(r'@[a-zA-Z0-9.-_]+(@[a-zA-Z0-9.]+-_)?')
 MFM_BEGIN = re.compile(r'\$\[[a-z0-9.,=]+')
 MFM_END = re.compile(r'\]+')
 HTML = re.compile(r'</?[a-z]+>')
@@ -32,6 +33,7 @@ for note in export_json:
         continue
 
     text = text.lower() 
+    text = re.sub(MENTION, '', text)
     text = re.sub(MFM_BEGIN, '', text)
     text = re.sub(MFM_END, '', text)
     text = re.sub(HTML, '', text)
