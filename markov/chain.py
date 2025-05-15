@@ -21,7 +21,7 @@ class Text(markovify.Text):
         return ret
 
     def word_join(self, words):
-        sentence = " ".join(word.split("::")[0] for word in words)
+        sentence = "".join(word.split("::")[0] for word in words)
         return sentence
     
     def sentence_split(self, text):
