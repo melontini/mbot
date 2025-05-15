@@ -1,19 +1,21 @@
 import pandas as pd
 import json
+import sys
 
-path = "data/"
-file1 = input("first file mate: ")
-file2 = input("second file mate: ")
+merged = []
 
-json1 = pd.read_json(path + file1)
-json2 = pd.read_json(path + file2)
+for file in sys.argv[1:]:
+    with open(file, 'r') as f:
+        data = json.load(f)
 
-combined = pd.concat([json1,json2])
-columns = ["id","createdAt","fileIds","files","replyId","renoteId","poll","visibleUserIds","reactionAcceptance"]
-combined = combined.drop(columns, axis=1)
-combined = combined.replace("null", None)
-combined = combined.drop_duplicates()
+    for record in data:
+        filtered_data = {}
 
-output = input('combined json filename please mate: ')
+        for key in ["visibility", "localOnly", "cw", "text"]:
+            if key in record:
+                filtered_data[key] = record[key]
+    
+        merged.append(filtered_data)
 
-combined.to_json("data/" + output, index=False, orient="records")
+with open("output.json", 'w') as f:
+        json.dump(merged, f, indent=2)
