@@ -1,3 +1,31 @@
+# mbot
+
+i stole this from [autumn](https://git.gay/JournalistAutumn/autumnated), modified to run multiple models with different creds.
+
+to test the model run
+
+```sh
+python generate.py --model model.json
+```
+
+provide credentials to post.
+
+```sh
+python generate.py --model model.json --domain shrimp.domain.tld --token "TOKEN" --pds pds.domain.tld --did "DID" --password "APPPASSWORD"
+```
+
+modify model parameters
+
+```sh
+python generate.py --model model.json --overlap 5 --tries 2000 --min_words 2
+```
+
+there are changes to cat.py to merge multiple files at once
+
+```sh
+python ./markov/cat.py first.json second.json third.json fourth.json
+```
+
 # autumnated
 
 i just stole from [sneexy's repo](https://forged.synth.download/sneexy/markov) the innovation i bring is just a script that converts mastodon to misskey for the sake of having journalist posts work with this mate also i guess nix flake so i don't need to put a bullet into my head dealing with python  (instead, i blow my head off dealing with nix )
