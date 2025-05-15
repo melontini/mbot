@@ -5,12 +5,10 @@ import sys
 print('[+] loading nlp enhanced markov chain')
 import chain
 
-MENTION = re.compile(r'@[a-zA-Z0-9.-_]+(@[a-zA-Z0-9.]+-_)?')
 MFM_BEGIN = re.compile(r'\$\[[a-z0-9.,=]+')
 MFM_END = re.compile(r'\]+')
 HTML = re.compile(r'</?[a-z]+>')
 SPACE = re.compile(r'[ \n]+')
-CONTRACTION = re.compile(r"(\w+)'(\w+)")
 
 print('[+] loading note json')
 export_f = sys.argv[1]
@@ -34,12 +32,10 @@ for note in export_json:
         continue
 
     text = text.lower() 
-    text = re.sub(MENTION, '', text)
     text = re.sub(MFM_BEGIN, '', text)
     text = re.sub(MFM_END, '', text)
     text = re.sub(HTML, '', text)
     text = re.sub(SPACE, ' ', text)
-    text = re.sub(CONTRACTION, r'\1\2', text)
     text = text.strip()
 
     print(f"     - {text}")
